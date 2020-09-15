@@ -1,15 +1,26 @@
-import React from "react";
+import React, { useState } from "react";
 import { render } from "react-dom";
-import Pet from "./Pet";
+import SearchParams from "./SearchParams";
+import { Router, Link } from "@reach/router";
+import Details from "./Details";
+import ThemeContext from "./ThemeContext";
 
 const App = () => {
+  const themeHook = useState("darkblue");
   return (
-    <div>
-      <h1>Adopt me!</h1>
-      <Pet name="perro" specie="dog" breed="algodon" />
-      <Pet name="ave" specie="bird" breed="algodon1" />
-      <Pet name="gato" specie="cat" breed="algodon2" />
-    </div>
+    <React.StrictMode>
+      <ThemeContext.Provider value={themeHook}>
+        <div>
+          <header>
+            <Link to="/">Adopt me!</Link>
+          </header>
+          <Router>
+            <SearchParams path="/" />
+            <Details path="/details/:id" />
+          </Router>
+        </div>
+      </ThemeContext.Provider>
+    </React.StrictMode>
   );
 };
 
